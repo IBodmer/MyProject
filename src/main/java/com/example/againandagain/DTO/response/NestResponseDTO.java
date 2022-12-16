@@ -14,5 +14,5 @@ import java.util.Set;
 public class NestResponseDTO {
     private String name;
     private String address;
-    private Set<BirdResponseDTOold> birds;
+    private Set<BirdResponseDTO> birds;
 }

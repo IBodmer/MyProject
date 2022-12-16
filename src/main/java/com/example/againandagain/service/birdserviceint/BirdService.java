@@ -3,9 +3,9 @@ package com.example.againandagain.service.birdserviceint;
 import com.example.againandagain.DTO.request.BirdRequestAddDTO;
 import com.example.againandagain.DTO.request.BirdRequestUpdateDTO;
 import com.example.againandagain.DTO.response.BirdResponseDTO;
-import com.example.againandagain.exeptions.BirdAlreadyAdded;
-import com.example.againandagain.exeptions.BirdNotFoundById;
-import com.example.againandagain.exeptions.NestNotFoundById;
+import com.example.againandagain.exeptions.alreadyadded.BirdAlreadyAdded;
+import com.example.againandagain.exeptions.notfound.BirdNotFoundById;
+import com.example.againandagain.exeptions.notfound.NestNotFoundById;
 
 public interface BirdService {
     BirdResponseDTO addBird(BirdRequestAddDTO bird) throws NestNotFoundById, BirdAlreadyAdded;

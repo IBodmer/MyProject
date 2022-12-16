@@ -2,12 +2,15 @@ package com.example.againandagain.controller;
 
 import com.example.againandagain.DTO.request.NestRequestAddDTO;
 import com.example.againandagain.DTO.request.NestRequestUpdateDTO;
+import com.example.againandagain.DTO.response.NestResponseDTO;
+import com.example.againandagain.DTO.response.NestResponseLowWeightDTO;
 import com.example.againandagain.service.NestServiceImpl;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/nests")
+@RequestMapping("api/v1/nest")
 public class NestController {
     private final NestServiceImpl nestService;
 
@@ -15,39 +18,23 @@ public class NestController {
         this.nestService = nestService;
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<?> addNest(@RequestBody NestRequestAddDTO nestRequestAddDTO) {
-        try {
-            return ResponseEntity.ok(nestService.addNest(nestRequestAddDTO));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    @PostMapping
+    public ResponseEntity<NestResponseLowWeightDTO> addNest(@RequestBody NestRequestAddDTO nestRequestAddDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(nestService.addNest(nestRequestAddDTO));
     }
 
-    @GetMapping("/get")
-    public ResponseEntity<?> getNestById(@RequestParam Long id) {
-        try {
-            return ResponseEntity.ok(nestService.getNestById(id));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    @GetMapping
+    public ResponseEntity<NestResponseDTO> getNestById(@RequestParam Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(nestService.getNestById(id));
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateNest(@RequestBody NestRequestUpdateDTO nestRequestUpdateDTO, @PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(nestService.updateNest(nestRequestUpdateDTO, id));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    @PutMapping("/{id}")
+    public ResponseEntity<NestResponseLowWeightDTO> updateNest(@RequestBody NestRequestUpdateDTO nestRequestUpdateDTO, @PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(nestService.updateNest(nestRequestUpdateDTO, id));
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteNestById(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(nestService.deleteNestById(id));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<NestResponseLowWeightDTO> deleteNestById(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(nestService.deleteNestById(id));
     }
 }
