@@ -15,11 +15,13 @@ public class BirdResponseDTO {
     private String name;
     private String color;
     private Boolean canFly;
+    private String nameNest;
     public static BirdResponseDTO toBirdRespDTO(Bird bird){
         BirdResponseDTO birdResponseDTO = new BirdResponseDTO();
         birdResponseDTO.setName(bird.getName());
         birdResponseDTO.setColor(bird.getColor());
         birdResponseDTO.setCanFly(bird.getCanFly());
+        birdResponseDTO.setNameNest(bird.getNest().getName());
         return birdResponseDTO;
     }
 }
