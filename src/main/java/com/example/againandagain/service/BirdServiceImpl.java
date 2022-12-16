@@ -2,7 +2,6 @@ package com.example.againandagain.service;
 
 import com.example.againandagain.DTO.request.BirdRequestAddDTO;
 import com.example.againandagain.DTO.request.BirdRequestUpdateDTO;
-import com.example.againandagain.DTO.response.BirdGetResponseDTO;
 import com.example.againandagain.DTO.response.BirdResponseDTO;
 import com.example.againandagain.exeptions.BirdAlreadyAdded;
 import com.example.againandagain.exeptions.BirdNotFoundById;
@@ -50,16 +49,16 @@ public class BirdServiceImpl implements BirdService {
     }
 
     @Override
-    public void deleteBirdById(Long id) throws BirdNotFoundById {
-        if (birdRepo.findById(id).isPresent()) {
-            birdRepo.deleteById(id);
-        } else throw new BirdNotFoundById("Птицы по id: " + id + " не найдено");
+    public BirdResponseDTO deleteBirdById(Long id) throws BirdNotFoundById {
+        Bird bird = birdRepo.findById(id).orElseThrow(() -> new BirdNotFoundById("Птицы по id: " + id + " не найдено"));
+        birdRepo.deleteById(bird.getId());
+        return BirdResponseDTO.toBirdRespDTO(bird);
     }
 
     @Override
-    public BirdGetResponseDTO getBirdById(Long id) throws BirdNotFoundById {
+    public BirdResponseDTO getBirdById(Long id) throws BirdNotFoundById {
         Bird bird = birdRepo.findById(id).orElseThrow(() -> new BirdNotFoundById("Птицы по id: " + id + " не найдено"));
-        return BirdGetResponseDTO.toBirdRespGetDTO(bird);
+        return BirdResponseDTO.toBirdRespDTO(bird);
     }
 
     public List<Bird> findAllBirdsWithNest(Long id) throws NestNotFoundById {

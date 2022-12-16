@@ -2,7 +2,7 @@ package com.example.againandagain.service;
 
 import com.example.againandagain.DTO.request.NestRequestAddDTO;
 import com.example.againandagain.DTO.request.NestRequestUpdateDTO;
-import com.example.againandagain.DTO.response.BirdResponseDTO;
+import com.example.againandagain.DTO.response.BirdResponseDTOold;
 import com.example.againandagain.DTO.response.NestResponseDTO;
 import com.example.againandagain.exeptions.NestAlreadyAdded;
 import com.example.againandagain.exeptions.NestNotFoundById;
@@ -42,7 +42,7 @@ public class NestServiceImpl implements NestService {
         return NestResponseDTO.builder()
                 .name(byId.getName())
                 .address(byId.getAddress())
-                .birds(byId.getBirds().stream().map(BirdResponseDTO::toBirdRespDTO).collect(Collectors.toSet()))
+                .birds(byId.getBirds().stream().map(BirdResponseDTOold::toBirdRespDTOold).collect(Collectors.toSet()))
                 .build();
     }
 
