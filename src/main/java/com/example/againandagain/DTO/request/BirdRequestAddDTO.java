@@ -9,11 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BirdRequestAddDTO {
     private Long nestId;
-
     private String name;
-
     private String color;
-
     private Boolean canFly;
 
 }

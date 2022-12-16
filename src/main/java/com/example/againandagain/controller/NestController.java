@@ -1,7 +1,5 @@
 package com.example.againandagain.controller;
 
-import com.example.againandagain.DTO.request.NestRequestAddDTO;
-import com.example.againandagain.DTO.request.NestRequestUpdateDTO;
 import com.example.againandagain.DTO.response.NestResponseDTO;
 import com.example.againandagain.DTO.response.NestResponseLowWeightDTO;
 import com.example.againandagain.service.NestServiceImpl;
@@ -19,7 +17,7 @@ public class NestController {
     }
 
     @PostMapping
-    public ResponseEntity<NestResponseLowWeightDTO> addNest(@RequestBody NestRequestAddDTO nestRequestAddDTO) {
+    public ResponseEntity<NestResponseLowWeightDTO> addNest(@RequestBody NestResponseLowWeightDTO nestRequestAddDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(nestService.addNest(nestRequestAddDTO));
     }
 
@@ -29,7 +27,7 @@ public class NestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<NestResponseLowWeightDTO> updateNest(@RequestBody NestRequestUpdateDTO nestRequestUpdateDTO, @PathVariable Long id) {
+    public ResponseEntity<NestResponseLowWeightDTO> updateNest(@RequestBody NestResponseLowWeightDTO nestRequestUpdateDTO, @PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(nestService.updateNest(nestRequestUpdateDTO, id));
     }
 
