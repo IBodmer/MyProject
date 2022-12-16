@@ -2,7 +2,10 @@ package com.example.againandagain.controller;
 
 import com.example.againandagain.DTO.request.BirdRequestAddDTO;
 import com.example.againandagain.DTO.request.BirdRequestUpdateDTO;
+import com.example.againandagain.DTO.response.BirdResponseDTO;
+import com.example.againandagain.model.Bird;
 import com.example.againandagain.service.BirdServiceImpl;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,12 +19,13 @@ public class BirdController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addBird(@RequestBody BirdRequestAddDTO bird) {
+
+    public ResponseEntity<BirdResponseDTO> addBird(@RequestBody BirdRequestAddDTO bird) {
         try {
 
-            return ResponseEntity.ok(birdServiceimpl.addBird(bird));
+            return ResponseEntity.status(HttpStatus.CREATED).body(birdServiceimpl.addBird(bird));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 
@@ -35,14 +39,14 @@ public class BirdController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteBirdById(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(birdServiceimpl.deleteBirdById(id));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
+//    @DeleteMapping("/delete/{id}")
+//    public ResponseEntity<?> deleteBirdById(@PathVariable Long id) {
+////        try {
+////            return ResponseEntity.ok(birdServiceimpl.deleteBirdById(id));
+////        } catch (Exception e) {
+////            return ResponseEntity.badRequest().body(e.getMessage());
+////        }
+//    }
 
     @GetMapping("/get")
     public ResponseEntity<?> getBirdById(@RequestParam Long id) {
