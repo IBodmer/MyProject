@@ -5,7 +5,7 @@ import com.example.againandagain.DTO.request.NestRequestUpdateDTO;
 import com.example.againandagain.DTO.response.BirdResponseDTO;
 import com.example.againandagain.DTO.response.NestResponseDTO;
 import com.example.againandagain.exeptions.NestAlreadyAdded;
-import com.example.againandagain.exeptions.NestIdNotFound;
+import com.example.againandagain.exeptions.NestNotFoundById;
 import com.example.againandagain.model.Nest;
 import com.example.againandagain.repository.NestRepo;
 import com.example.againandagain.service.nestserviceint.NestService;
@@ -36,8 +36,8 @@ public class NestServiceImpl implements NestService {
     }
 
     @Override
-    public NestResponseDTO getNestById(Long id) throws NestIdNotFound {
-        Nest byId = nestRepo.findById(id).orElseThrow(() -> new NestIdNotFound("Гнезда по id: " + id + " не найдено"));
+    public NestResponseDTO getNestById(Long id) throws NestNotFoundById {
+        Nest byId = nestRepo.findById(id).orElseThrow(() -> new NestNotFoundById("Гнезда по id: " + id + " не найдено"));
 
         return NestResponseDTO.builder()
                 .name(byId.getName())
@@ -47,8 +47,8 @@ public class NestServiceImpl implements NestService {
     }
 
     @Override
-    public String updateNest(NestRequestUpdateDTO nestRequestUpdateDTO, Long id) throws NestIdNotFound {
-        Nest nestById = nestRepo.findById(id).orElseThrow(() -> new NestIdNotFound("Гнезда по id: " + id + " не найдено"));
+    public String updateNest(NestRequestUpdateDTO nestRequestUpdateDTO, Long id) throws NestNotFoundById {
+        Nest nestById = nestRepo.findById(id).orElseThrow(() -> new NestNotFoundById("Гнезда по id: " + id + " не найдено"));
         nestById.setName(nestRequestUpdateDTO.getName());
         nestById.setAddress(nestRequestUpdateDTO.getAddress());
         nestRepo.save(nestById);
@@ -56,10 +56,10 @@ public class NestServiceImpl implements NestService {
     }
 
     @Override
-    public String deleteNestById(Long id) throws NestIdNotFound {
+    public String deleteNestById(Long id) throws NestNotFoundById {
         if (nestRepo.findById(id).isPresent()) {
             nestRepo.deleteById(id);
-        } else throw new NestIdNotFound("Гнезда по id: " + id + " не найдено");
+        } else throw new NestNotFoundById("Гнезда по id: " + id + " не найдено");
         return "ok";
     }
 }
