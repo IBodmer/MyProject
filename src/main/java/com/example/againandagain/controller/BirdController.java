@@ -39,13 +39,13 @@ public class BirdController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(birdServiceimpl.deleteBirdById(id));
     }
 
-    @GetMapping
-    public ResponseEntity<BirdResponseDTO> getBirdById(@RequestParam Long id) throws BirdNotFoundById {
+    @GetMapping("/{id}")
+    public ResponseEntity<BirdResponseDTO> getBirdById(@PathVariable Long id) throws BirdNotFoundById {
         return ResponseEntity.status(HttpStatus.OK).body(birdServiceimpl.getBirdById(id));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<List<Bird>> findAllBirdsWithNest(@PathVariable Long id) throws NestNotFoundById {
+    @GetMapping
+    public ResponseEntity<List<Bird>> findAllBirdsWithNest(@RequestParam Long id) throws NestNotFoundById {
         return ResponseEntity.status(HttpStatus.OK).body(birdServiceimpl.findAllBirdsWithNest(id));
 
     }
