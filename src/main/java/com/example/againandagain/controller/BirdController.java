@@ -5,12 +5,15 @@ import com.example.againandagain.DTO.request.BirdRequestUpdateDTO;
 import com.example.againandagain.DTO.response.BirdResponseDTO;
 import com.example.againandagain.model.Bird;
 import com.example.againandagain.service.BirdServiceImpl;
+import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Validated
 @RestController
 @RequestMapping("api/v1/bird")
 public class BirdController {
@@ -21,8 +24,7 @@ public class BirdController {
     }
 
     @PostMapping
-
-    public ResponseEntity<BirdResponseDTO> addBird(@RequestBody BirdRequestAddDTO bird) {
+    public ResponseEntity<BirdResponseDTO> addBird(@Valid @RequestBody BirdRequestAddDTO bird) {
         return ResponseEntity.status(HttpStatus.CREATED).body(birdServiceimpl.addBird(bird));
     }
 

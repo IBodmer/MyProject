@@ -20,6 +20,7 @@ public class Bird {
     private String name;
     @NotBlank(message = "Bird color should not be empty")
     private String color;
+    @NotBlank(message = "You have to tell if your bird flies")
     private Boolean canFly;
     @JsonBackReference
     @ManyToOne

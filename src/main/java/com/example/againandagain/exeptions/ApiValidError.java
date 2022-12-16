@@ -12,9 +12,10 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApiError  {
+public class ApiValidError {
+    private String path;
     private  String message;
-    private  HttpStatus httpStatus;
+    private HttpStatus httpStatus;
     private LocalDateTime localDateTime;
 
 }
